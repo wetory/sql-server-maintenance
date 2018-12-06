@@ -1,0 +1,6 @@
+# excluded files
+delete_old_sql_backup_files.vbs
+Visio drawings
+T-SQL
+Fixes
+docs/SQL Server Maintenance - documentation.docx
