@@ -10,10 +10,11 @@
 		- change initial size and autogrowth on model and tempdb database based on our agreed standard
 	All schedules are agreed based on standardized template for maintenance. For detailed info contact author.
 	Author: Tomas Rybnicky (tomas.rybnicky@wetory.eu)
-	Date of last update: 
-     v2.0.1 - 06.12.2018 - added @Init parameters to backup stored procedures calls
-	 
+	Date of last update:
+	 v2.0.2 - 09.01.2019 - Update statistics in Maintenance_OptimizeWeekend modified to use full scan and all statistics during weekend optimization 
+     	 
 	List of previous revisions:
+	 v2.0.1 - 06.12.2018 - added @Init parameters to backup stored procedures calls
 	 v2.0	- 26.11.2018 - Introduced new parameters for handling backup folder structure and file naming conventions
 	 v1.9.2 - 20.11.2018 - OH procedures from 28 Oct 2018 included. Small modification related to cleanup in BackupDatabase procedure.
 	 v1.9.1 - 03.08.2017 - bug with used 3402 traceflag fixed
@@ -42,7 +43,7 @@ USE [master]
 GO
 SET NOCOUNT ON
 GO
-DECLARE @ScriptVersion			NVARCHAR(16) = '2.0'
+DECLARE @ScriptVersion			NVARCHAR(16) = '2.0.2'
 DECLARE @DefaultBackupDirectory	NVARCHAR(4000)
 DECLARE @CleanupTime			INT
 DECLARE @OutputFileDirectory	NVARCHAR(MAX)
@@ -8462,7 +8463,8 @@ EXECUTE msdb..sp_maintplan_delete_log @oldest_time = @MonthAgo',
 @FragmentationHigh = NULL,
 @UpdateStatistics = ''ALL'',
 @LogToTable = ''' + @LogToTable + ''',
-@OnlyModifiedStatistics = ''Y'''
+@OnlyModifiedStatistics = ''N'',
+@StatisticsSample = 100'
 	EXEC [master].[dbo].StdMaintenanceAddJobStep
 		@JobName						= @JobName,
 		@StepName						= 'Update Statistics',
