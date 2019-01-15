@@ -4,9 +4,12 @@ Standardized database maintenance for SQL Server, built over popular Ola Halengr
 Official documentation of one-script maintenance solution. More detailed info within [documentation file](docs/SQL%20Server%20Maintenance%20-%20documentation.pdf).
 
 Table of contents:
-  * [Introduction](#1-introduction)
-  * [Technical preview](#2-technical-preview)
-  * [Deployment](#3-deployment)
+  * [1 Introduction](#1-introduction)
+  * [2 Technical preview](#2-technical-preview)
+  * [3 Deployment](#3-deployment)
+   * [3.1 Exceptions in environments](#3.1-exceptions-in-environments)
+   * [3.2 Optimize TempDB](#3.2-optimize-tempdb)
+   * [3.3 Optimize model settings](#3.3-optimize-model-settings)
 
 ## 1 Introduction
 
