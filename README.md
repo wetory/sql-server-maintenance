@@ -7,9 +7,18 @@ Table of contents:
   * [1 Introduction](#1-introduction)
   * [2 Technical preview](#2-technical-preview)
   * [3 Deployment](#3-deployment)
-   * [3.1 Exceptions in environments](#31-exceptions-in-environments)
-   * [3.2 Optimize TempDB](#32-optimize-tempdb)
-   * [3.3 Optimize model settings](#33-optimize-model-settings)
+    * [3.1 Exceptions in environments](#31-exceptions-in-environments)
+    * [3.2 Optimize TempDB](#32-optimize-tempdb)
+    * [3.3 Optimize model settings](#33-optimize-model-settings)
+  * [4 After deployment](#4-after-deployment)
+    * [4.1 Direct results](#41-direct-results)
+    * [4.2 System databases](#42-system-databases)
+    * [4.3 SQL Agent jobs](#43-sql-agent-jobs)
+    * [4.4 SQL Agent jobs schedules](#44-sql-agent-jobs-schedules)
+    * [4.5 Database backup retention](#45-database-backup-retention)
+  * [5 Possible problems](#5-possible-problems)
+    * [5.1 Reporting issues](#51-reporting-issues)
+
 
 ## 1 Introduction
 
@@ -97,5 +106,18 @@ We are changing model database configuration to more efficient and optimal value
 
 For more info about model database see official MSDN article https://msdn.microsoft.com/en-us/library/ms186388.aspx.	
 
+## 4 After deployment
 
+### 4.1 Direct results
 
+### 4.2 System databases
+
+### 4.3 SQL Agent jobs
+
+### 4.4 SQL Agent jobs schedules
+
+### 4.5 Database backup retention
+
+## 5 Possible problems
+
+### 5.1 Reporting issues
