@@ -7,9 +7,9 @@ Table of contents:
   * [1 Introduction](#1-introduction)
   * [2 Technical preview](#2-technical-preview)
   * [3 Deployment](#3-deployment)
-   * [3.1 Exceptions in environments](#3.1-exceptions-in-environments)
-   * [3.2 Optimize TempDB](#3.2-optimize-tempdb)
-   * [3.3 Optimize model settings](#3.3-optimize-model-settings)
+   * [3.1 Exceptions in environments](#31-exceptions-in-environments)
+   * [3.2 Optimize TempDB](#32-optimize-tempdb)
+   * [3.3 Optimize model settings](#33-optimize-model-settings)
 
 ## 1 Introduction
 
