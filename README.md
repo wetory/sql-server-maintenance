@@ -1,4 +1,4 @@
-# SQL-Server-Maintenance
+# SQL Server Maintenance
 Standardized database maintenance for SQL Server, built over popular Ola Halengreen's procedures.
 
 Official documentation of one-script maintenance solution. More detailed info within [documentation file](docs/SQL%20Server%20Maintenance%20-%20documentation.pdf).
