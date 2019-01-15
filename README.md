@@ -109,6 +109,40 @@ For more info about model database see official MSDN article https://msdn.micros
 ## 4 After deployment
 
 ### 4.1 Direct results
+After proper execution you can check messages for detailed steps which have been done over instance and also for possible related error messages.
+```
+SQL Server maintenance template - deployment of solution
+-------------------------------------------------------------------------
+STEP : Instance RYBNITOM has instance index 0 on this server
+STEP : Collecting of instance data complete
+STEP : Creating OH stuff in master database complete
+STEP : Helper procedures created
+STEP : Checking status of SQL Server Agent service
+STEP : Folder for output files created in C:\Program Files\Microsoft SQL Server\MSSQL14.RYBNITOM\MSSQL\LOG
+STEP : Job Maintenance_BackupFull created
+STEP : Job Maintenance_BackupDiff created
+STEP : Job Maintenance_BackupTlog created
+STEP : Job Maintenance_IntegrityAndCleanup created
+STEP : Job Maintenance_OptimizeWeekend created
+STEP : Job Maintenance_OptimizeWeek created
+STEP : Job Maintenance_ErrorLogRecycle created
+STEP : Job syspolicy_purge_history not found
+STEP : All helper objects dropped
+-------------------------------------------------------------------------
+Maintenance solution successfully deployed
+```
+
+And in some cases you may be asked for schedules or you can use it for self-review of schedules for deployed jobs or you can attach to install change etc. there is result table with job names and schedules.
+
+| job_name |	schedule |
+| :--- | :--- |
+| Maintenance_OptimizeWeek	| Occurs Every 1 Week(s), On MonTueWedThuFri, At 3:00 A.M. |
+| Maintenance_BackupDiff |	Occurs Every 1 Week(s), On MonTueWedThuFriSat, At 10:30 P.M |
+| Maintenance_BackupFull |	Occurs Every 1 Week(s), On Sun, At 10:30 P.M |
+| Maintenance_OptimizeWeekend	| Occurs Every 1 Week(s), On Sun, At 3:00 A.M. |
+| Maintenance_ErrorLogRecycle |	Occurs Every 2 Week(s), On Sun, At 2:00 A.M. |
+| Maintenance_BackupTlog |	Occurs Every 1 Day(s), every 1 Hour(s) Between 12:00 A.M. and 11:59 P.M |
+| Maintenance_IntegrityAndCleanup	| Occurs Every 1 Week(s), On Sat, At 3:00 A.M. |
 
 ### 4.2 System databases
 
