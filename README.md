@@ -109,6 +109,7 @@ For more info about model database see official MSDN article https://msdn.micros
 ## 4 After deployment
 
 ### 4.1 Direct results
+
 After proper execution you can check messages for detailed steps which have been done over instance and also for possible related error messages.
 ```
 SQL Server maintenance template - deployment of solution
@@ -146,12 +147,86 @@ And in some cases you may be asked for schedules or you can use it for self-revi
 
 ### 4.2 System databases
 
+You can also can see tempdb and model database file properties have been changed that it was changed if parameter **@OptimizeTempdb** is set to **Y** (what means YES). File autogrowth and initial size modified to meet some optimal values rather than go with default ones. Can be benefical for non DBA teams taking care of SQL Server databases.
+
 ### 4.3 SQL Agent jobs
+
+This section describes SQL Agent jobs deployed to the target SQL Server instance by executing mentioned script. All jobs are part of SQL Server maintenance since deployed and all colising Maintenance plans or user defined SQL AGen jobs should be disabled or removed if there are any to prevent duplicate maintenance or backup tasks done.
+
+Following list contain short description for all steps in all jobs that are part of solution.For more info about procedures executed in steps, read offical Ola Halengreen’s documentation.
+
+Every step also contains link to official Microsoft documentation of SQL Server maintenance tasks and related command and procedures used to run them.
+
+**Maintenance_BackupDiff**
+ * **TRACEON 3042** – enabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+ * **Full Backup - System databases** – full backup of all system databases https://msdn.microsoft.com/en-us/library/ms186289.aspx
+ *	**Diff Backup - User databases** – differential backup of all user databases https://msdn.microsoft.com/en-us/library/ms175526.aspx
+ * **TRACEOFF 3042** – disabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+ * **Integrity Physical** - All databases – DBCC CHECKDB with option PHYSICAL_ONLY https://msdn.microsoft.com/en-us/library/ms176064.aspx
+
+**Maintenance_BackupFull**
+ * **TRACEON 3042** – enabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+ * **Full Backup - System databases** – full backup of all system databases https://msdn.microsoft.com/en-us/library/ms186289.aspx
+ *	**Full Backup - User databases** – full backup of all user databases https://msdn.microsoft.com/en-us/library/ms186289.aspx
+ * **TRACEOFF 3042** – disabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+ * **Integrity Physical** - All databases – DBCC CHECKDB with option PHYSICAL_ONLY https://msdn.microsoft.com/en-us/library/ms176064.aspx
+ 
+**Maintenance_BackupTlog**
+ * **TRACEON 3042** – enabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+ * **Tlog Backup - System databases** – backup of transaction log for all system databases (in full recovery model) 
+https://msdn.microsoft.com/en-us/library/ms191429.aspx
+ * **Tlog Backup - User databases** – backup of transaction log for all user databases (in full recovery model) 
+https://msdn.microsoft.com/en-us/library/ms191429.aspx
+ * **TRACEOFF 3042** – disabling incremental backup file growth https://msdn.microsoft.com/en-us/library/ms188396.aspx
+
+**Maintenance_ErrorLogRecycle**
+ * **Cycle Error Log** – close existing SQL Log and create new one https://technet.microsoft.com/en-us/library/ms182512(v=sql.110).aspx
+
+**Maintenance_IntegrityAndCleanup**
+ * **Integrity Check** – DBCC CHECKDB with full scans over all objects in databases https://msdn.microsoft.com/en-us/library/ms176064.aspx
+ * **Command Log Cleanup** – removing records older than 30 days from [master].[dbo].[CommandLog] table
+ * **Output Files Cleanup** - removing files older than 30 days from output files folder (<<log directory>> + \Maintenace_OutputFiles\)
+ * **History Cleanup** - removing records older than 30 days from system tables
+
+**Maintenance_OptimizeWeek**
+ * **Index Optimize** – rebuilding or reorganizing indexes based on their fragmentation (0% -30%, 30% - 60%, 60% - 100%). Excluding offline index rebuilds to prevent table locks.
+https://technet.microsoft.com/en-us/library/ms190910(v=sql.105).aspx
+ * **Update Statistics** – updating of query optimization statistics on a table or indexed view https://msdn.microsoft.com/en-us/library/ms187348.aspx
+
+**Maintenance_OptimizeWeekend**
+ * **Index Optimize** – rebuilding or reorganizing indexes based on their fragmentation (0% -5%, 5% - 30%, 30% - 100%). Including offline index rebuilds.
+https://technet.microsoft.com/en-us/library/ms190910(v=sql.105).aspx
+ * **Update Statistics** – updating of query optimization statistics on a table or indexed view https://msdn.microsoft.com/en-us/library/ms187348.aspx
+
+**Maintenance_SyspolicyPurgeHistory (just renamed syspolicy_purge_history job)**
+ * Verify that automation is enabled.
+ * Purge history.
+ * Erase Phantom System Health Records.
+
+All suggested SQL Server database maintenance tasks are pretty well described at this site https://technet.microsoft.com/en-us/library/ms140255(v=sql.105).aspx. This maintenance solution is trying to find some accurate way to meet all database needs and include standardization definitions and schedules for use in company which is taking care of many SQL Server environments and want to keed all instances in good health condition.
 
 ### 4.4 SQL Agent jobs schedules
 
+All schedules are set up during deployment as agreed standardized and optimal schedules for related SQL Server maintenance task. If SQL Server instance require different schedules because of some reason it **can be modified after deployement same as whole maintenance solution can be (and also should be) modified** to fit exact needs of SQL Server instance it is deployed to
+
 ### 4.5 Database backup retention
+
+Following drawing is describing available retore times that are feasible when standardized SQL Server maintenance is used for taking care of database backup reoutines.
+Drawing does not describe point-in-time restores for databases in full recevory model. Backup of transaction log is running every 1 hour by default (can be adjusted for frequently changed databases)
+
+![Screenshot](img/database%20backup%20retention.png)
 
 ## 5 Possible problems
 
+There was testing of the solution ongoing for several weeks for debugging and tuning purposes and all known problems has been fixed already, but as everything also this script can cause some issues in different environments. 
+I’m assuming only following possible issues:
+ * problems with old backup files removal
+ * problems with compression on not supported SQL versions/editions (partially fixed)
+
+And some other possible problems can be related to OH stuff in the solution so, please be so kind and try to check this FAQ https://ola.hallengren.com/frequently-asked-questions.html first before asking me directly.
+
 ### 5.1 Reporting issues
+
+Please report all found issues, current version of the solution is the first one and require some debugging to be “perfect”. Here are some contacts you can write to via email or LYNC:
+
+ * tomas.rybnicky@wetory.eu (T-SQL)
