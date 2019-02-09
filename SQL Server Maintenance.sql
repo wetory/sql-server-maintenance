@@ -14,7 +14,7 @@
 	 v2.0.2 - 09.01.2019 - Update statistics in Maintenance_OptimizeWeekend modified to use full scan and all statistics during weekend optimization 
      	 
 	List of previous revisions:
-	 v2.0.1 - 06.12.2018 - added @Init parameters to backup stored procedures calls
+	 v2.0.1 - 06.12.2018 - added @Init parameters to full and diff backup stored procedures calls
 	 v2.0	- 26.11.2018 - Introduced new parameters for handling backup folder structure and file naming conventions
 	 v1.9.2 - 20.11.2018 - OH procedures from 28 Oct 2018 included. Small modification related to cleanup in BackupDatabase procedure.
 	 v1.9.1 - 03.08.2017 - bug with used 3402 traceflag fixed
@@ -8298,7 +8298,6 @@ DBCC TRACEON  (3042,-1);',
 @Databases = ''SYSTEM_DATABASES'',
 @Directory = ''' + @BackupDirectory + ''',
 @BackupType = ''LOG'',
-@Init = ''Y'',
 @Verify = ''N'',
 @CheckSum = ''Y'',
 @LogToTable = ''' + @LogToTable + ''',
@@ -8328,7 +8327,6 @@ DBCC TRACEON  (3042,-1);',
 @Databases = ''USER_DATABASES, -BAMPrimaryImport%, -BAMAlertsApplication%, -BAMAlertsNSMain%, -BizTalkDTADb%, -BizTalkMgmtDb%, -BizTalkMsgBoxDb%, -BizTalkRuleEngineDb%, -SSODB%, -BAMStarSchema%, -BAMAnalysis%, -BAMArchive%, -BizTalkAnalysisDb%'',
 @Directory = ''' + @BackupDirectory + ''',
 @BackupType = ''LOG'',
-@Init = ''Y'',
 @Verify = ''N'',
 @CheckSum = ''Y'',
 @LogToTable = ''' + @LogToTable + ''',
@@ -8345,7 +8343,6 @@ DBCC TRACEON  (3042,-1);',
 @Databases = ''USER_DATABASES'',
 @Directory = ''' + @BackupDirectory + ''',
 @BackupType = ''LOG'',
-@Init = ''Y'',
 @Verify = ''N'',
 @CheckSum = ''Y'',
 @LogToTable = ''' + @LogToTable + ''',
