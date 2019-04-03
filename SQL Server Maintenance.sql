@@ -11,9 +11,10 @@
 	All schedules are agreed based on standardized template for maintenance. For detailed info contact author.
 	Author: Tomas Rybnicky (tomas.rybnicky@wetory.eu)
 	Date of last update:
-	 v2.0.2 - 09.01.2019 - Update statistics in Maintenance_OptimizeWeekend modified to use full scan and all statistics during weekend optimization 
+	 v2.0.3 - 11.02.2019 - File name of AG database changed 
      	 
 	List of previous revisions:
+	 v2.0.2 - 09.01.2019 - Update statistics in Maintenance_OptimizeWeekend modified to use full scan and all statistics during weekend optimization 
 	 v2.0.1 - 06.12.2018 - added @Init parameters to full and diff backup stored procedures calls
 	 v2.0	- 26.11.2018 - Introduced new parameters for handling backup folder structure and file naming conventions
 	 v1.9.2 - 20.11.2018 - OH procedures from 28 Oct 2018 included. Small modification related to cleanup in BackupDatabase procedure.
@@ -8081,7 +8082,7 @@ BEGIN
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 	EXEC [master].[dbo].StdMaintenanceAddJobStep
 		@JobName						= @JobName,
 		@StepName						= 'Full Backup - System databases',
@@ -8111,7 +8112,7 @@ BEGIN
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END
 		ELSE
 		BEGIN
@@ -8128,7 +8129,7 @@ BEGIN
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END
 		EXEC [master].[dbo].StdMaintenanceAddJobStep
 			@JobName						= @JobName,
@@ -8184,7 +8185,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupFull' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 	EXEC [master].[dbo].StdMaintenanceAddJobStep
 		@JobName						= @JobName,
 		@StepName						= 'Full Backup - System databases',
@@ -8215,7 +8216,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END
 		ELSE
 		BEGIN
@@ -8233,7 +8234,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupDifferential' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END
 		EXEC [master].[dbo].StdMaintenanceAddJobStep
 			@JobName						= @JobName,
@@ -8306,7 +8307,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''			
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''			
 	EXEC [master].[dbo].StdMaintenanceAddJobStep
 		@JobName						= @JobName,
 		@StepName						= 'Tlog Backup - System databases',
@@ -8335,7 +8336,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END
 		ELSE
 		BEGIN
@@ -8351,7 +8352,7 @@ DBCC TRACEON  (3042,-1);',
 @DirectoryStructure = ' + @DirectoryStructure + ',
 @AvailabilityGroupDirectoryStructure = ' + @DirectoryStructure + ',
 @FileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'',
-@AvailabilityGroupFileName = ''{ServerName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
+@AvailabilityGroupFileName = ''{AvailabilityGroupName}_{DatabaseName}_BackupTranslog' + @FileNameSuffix + '_{FileNumber}.{FileExtension}'''
 		END	
 		EXEC [master].[dbo].StdMaintenanceAddJobStep
 			@JobName						= @JobName,
