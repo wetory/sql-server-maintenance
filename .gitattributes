@@ -1,2 +1,1 @@
-* linguist-vendored
-*.sql linguist-vendored=false
+*.sql linguist-language=T-SQL
