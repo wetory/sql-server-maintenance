@@ -227,6 +227,6 @@ And some other possible problems can be related to OH stuff in the solution so, 
 
 ### 5.1 Reporting issues
 
-Please report all found issues, current version of the solution is the first one and require some debugging to be “perfect”. Here are some contacts you can write to via email or LYNC:
+Please report all found issues, current version of the solution is the first one and require some debugging to be “perfect”. Here are some contacts you can use:
 
  * tomas.rybnicky@wetory.eu (T-SQL)
